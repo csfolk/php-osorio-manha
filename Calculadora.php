@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <title>Calculadora</title>
 
     <link rel="stylesheet" href="styles.css">
@@ -12,8 +14,8 @@
 
     session_start();
 
-    $nr1 = 0;
-    $nr2 = 0;
+    $nmr1 = 0;
+    $nmr2 = 0;
     $resultado = 0;
     $calcular = 0;
 
@@ -34,38 +36,38 @@
     }
 
     if (!isset($_SESSION['memoria'])) {
-        $_SESSION['memoria'] = array('nr1' => 0, 'nr2' => 0, 'calcular' => 'somar');
+        $_SESSION['memoria'] = array('nmr1' => 0, 'nmr2' => 0, 'calcular' => 'somar');
     }
 
-    if (isset($_GET['nr1'], $_GET['nr2'], $_GET['calcular'])) {
-        $nr1 = $_GET['nr1'];
-        $nr2 = $_GET['nr2'];
+    if (isset($_GET['nmr1'], $_GET['nmr2'], $_GET['calcular'])) {
+        $nmr1 = $_GET['nmr1'];
+        $nmr2 = $_GET['nmr2'];
         $calcular = $_GET['calcular'];
 
         switch ($calcular) {
             case 'somar':
-                $resultado = $nr1 + $nr2;
+                $resultado = $nmr1 + $nmr2;
                 break;
             case 'subtrair':
-                $resultado = $nr1 - $nr2;
+                $resultado = $nmr1 - $nmr2;
                 break;
             case 'multiplicar':
-                $resultado = $nr1 * $nr2;
+                $resultado = $nmr1 * $nmr2;
                 break;
             case 'dividir':
-                $resultado = $nr1 / $nr2;
+                $resultado = $nmr1 / $nmr2;
                 break;
             case 'fatorar':
-                $resultado = fatoracao($nr1);
+                $resultado = fatoracao($nmr1);
                 break;
             case 'potencia':
-                $resultado = pow($nr1, $nr2);
+                $resultado = pow($nmr1, $nmr2);
                 break;
         }
 
         $_SESSION['historico'][] = array(
-            'nr1' => $nr1,
-            'nr2' => $nr2,
+            'nmr1' => $nmr1,
+            'nmr2' => $nmr2,
             'calcular' => $calcular,
             'resultado' => $resultado
         );
@@ -76,7 +78,7 @@
     }
 
     if (isset($_GET['memoria'])) {
-        $_SESSION['memoria'] = array('nr1' => $nr1, 'nr2' => $nr2, 'calcular' => $calcular);
+        $_SESSION['memoria'] = array('nmr1' => $nmr1, 'nmr2' => $nmr2, 'calcular' => $calcular);
     }
 
     ?>
@@ -86,15 +88,16 @@
 </head>
 
 <body>
-    <form>
+    <form class="">
         <div class="cabecalho">
             <h1>Calculadora</h1>
         </div>
         Primeiro número
-        <input type="number" required name="nr1" value=<?php echo $nr1; ?> /> Segundo número
-        <input type="number" required name="nr2" value=<?php echo $nr2; ?> /> <br /> <br>
+        <input type="input" class="form-control" style="width:10%" required name="nmr1" value=<?php echo $nmr1; ?> /> 
+        Segundo número
+        <input type="input" class="form-control" style="width:10%" required name="nmr2" value=<?php echo $nmr2; ?> /> <br /> <br>
 
-        <select name="calcular">
+        <select name="calcular" class="form-select form-select-lg mb-3" style="width:10%" >
             <option value="somar" <?php echo ($calcular == 'somar') ? 'selected' : ''; ?>>Somar</option>
             <option value="subtrair" <?php echo ($calcular == 'subtrair') ? 'selected' : ''; ?>>Subtrair</option>
             <option value="multiplicar" <?php echo ($calcular == 'multiplicar') ? 'selected' : ''; ?>>Multiplicar
@@ -104,11 +107,11 @@
             <option value="potencia" <?php echo ($calcular == 'potencia') ? 'selected' : ''; ?>>Potência</option>
         </select>
         <br /><br />
-        <input type="submit" class="botao-calcular" value="calcular" />
+        <input type="submit" class="btn btn-primary" value="calcular" />
 
-        <input type="submit" class="botao-calcular" name="limpar_historico" value="Limpar Histórico" />
+        <input type="submit" class="btn btn-danger" name="limpar_historico" value="Limpar Histórico" />
 
-        <input type="submit" class="botao-calcular" name="memoria" value="M" />
+        <input type="submit" class="btn btn-warning" name="memoria" value="M" />
 
 
 
@@ -116,19 +119,19 @@
 
 
     <h2>Histórico</h2>
-    <table>
+    <table class="table">
         <tr>
-            <th>Numero 1</th>
-            <th>Numero 2</th>
-            <th>Operacao</th>
-            <th>Resultado</th>
+            <th class="table-dark">Número 1</th>
+            <th class="table-dark">Número 2</th>
+            <th class="table-dark">Operação</th>
+            <th class="table-dark">Resultado</th>
         </tr>
-        <?php foreach ($_SESSION['historico'] as $operação) : ?>
+        <?php foreach ($_SESSION['historico'] as $operacao) : ?>
         <tr>
-            <td><?php echo $operação['nr1']; ?></td>
-            <td><?php echo $operação['nr2']; ?></td>
-            <td><?php echo $operação['calcular']; ?></td>
-            <td><?php echo is_array($operação['resultado']) ? implode(', ', $operação['resultado']) : $operação['resultado']; ?>
+            <td class="table-success"><?php echo $operacao['nmr1']; ?></td>
+            <td class="table-danger"><?php echo $operacao['nmr2']; ?></td>
+            <td class="table-warning"><?php echo $operacao['calcular']; ?></td>
+            <td class="table-info"><?php echo is_array($operacao['resultado']) ? implode(', ', $operacao['resultado']) : $operacao['resultado']; ?>
             </td>
         </tr>
         <?php endforeach; ?>

@@ -1,61 +1,39 @@
 body {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #000000;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h1{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color:#5c0808;
+    color:#000000;
     font-size: 50px;
     border-radius: 20px;
      
    
 }
 
+h2{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color:#000000;
+    font-size: 30px;
+    border-radius: 50px;
+    margin: 35px;
+     
+   
+}
+
 h1:hover{
 
-    color: #cc0000;
+    color: #00cc22;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 .cabecalho{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
-
-table {
-            border-collapse: collapse;
-            width: 100%;
-           
-        }
-
-th, td {
-            border: 1px solid #04181f;
-            text-align: left;
-            padding: 8px;
-            box-shadow: 0 0 10px rgb(119, 36, 36);
-            transition: box-shadow 0.3s ease;
-        }
-
-th {
-            background-color: #5c0808;
-        }
-.botao-calcular {
-    background-color: #494545;
-    color: #ffffff; 
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px; 
-    cursor: pointer;
-    transition: box-shadow 0.3s ease;
-    }
-
-.botao-calcular:hover {
-    background-color: #cc0000;
-    }
-.botao-calcular:active {
-    box-shadow: 0 0 10px rgb(255, 0, 0); 
-}
-
